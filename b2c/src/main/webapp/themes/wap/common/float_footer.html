@@ -1,0 +1,42 @@
+<!-- 浮动菜单 -->
+<div class="float-footer">
+	<ul>
+		<li>
+			<a href="${ctx}/index.html">
+				<i class="iconfont icon-xianhua"></i>
+				<span>&nbsp;</span>
+				<span>首页</span>
+			</a>
+		</li>
+		<li>
+			<a href="${ctx}/classify.html">
+				<i class="iconfont icon-leimupinleifenleileibie"></i>
+				<span>&nbsp;</span>
+				<span>分类</span>
+			</a>
+		</li>
+		<li>
+			<a href="${ctx}/cart.html">
+				<i class="iconfont icon-icon01"></i>
+				<span>&nbsp;</span>
+				<span>购物车</span>
+			</a>
+		</li>
+		<li>
+			<a href="${ctx}/member.html">
+				<i class="iconfont icon-xiazai"></i>
+				<span>&nbsp;</span>
+				<span>我的</span>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="foat-blank">
+</div>
+<script>
+	$(function(){
+		//动态获得空白位置高度
+		var blankHieght = parseInt($(".float-footer").height());
+		$(".foat-blank").css("height",blankHieght+"px");
+	})
+</script>

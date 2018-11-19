@@ -1,0 +1,172 @@
+<#assign  title="我的" />
+<#include 'common/header.html'>
+<#assign memberLoginCheckTag = newTag("memberLoginCheckTag") />
+<#assign memberInfo = memberLoginCheckTag()!'' />
+<link rel="stylesheet" type="text/css" href="themes/wap/css/member.css" />
+<link rel="stylesheet" type="text/css" href="themes/wap/css/iconfont.css" />
+<div class="member-box">
+	<div class="member-center-tittle">
+		<#if member??>
+			<div id="mingzidiv"><h1>${member.uname!''}</h1></div>
+			<div class="member-center-img">
+				<#if member.face?exists && member.face != ''>
+	    			<p><img src="<@imgurl pic='${member.face}'/>" /></p>
+	    		<#else>
+	     			<p><@image src="${ctx}/themes/wap/images/touxiang.jpg"/></p>
+	     		</#if>
+			</div>
+		<#else>
+			
+			<h1>登录</h1>
+			<div class="member-center-img">
+				<p><a href="${ctx}/login.html?forward=${ctx}/member.html">+</a></p>
+			</div>
+		</#if>
+	</div>
+	<p class="wddd">&nbsp;&nbsp;&nbsp;&nbsp;我的订单</p>
+	<div class="member-tools-btn-box">
+	
+		<div class="member-tools-btn member-btn1">
+			<a href="orderlist.html">
+				<i class="iconfont icon-dingdan dingdan"></i>
+				<p>全部订单</p>
+			</a>
+		</div>
+		<div class="member-tools-btn member-btn2">
+			<a href="orderlist.html?status=1">
+				<i class="iconfont icon-daifukuan1 dingdan"></i>
+				<p>待付款</p>
+			</a>
+			
+		</div>
+		<div class="member-tools-btn member-btn3" style="border:0px none">
+			<a href="orderlist.html?status=3">
+				<i class="iconfont icon-shouhuo dingdan"></i>
+				<p>待收货</p>
+			</a>
+			
+		</div>
+	</div>
+
+<div class="go-member-other-box">
+	<!-- 分类展示一 -->
+	<style type="text/css">
+		.box-a{
+			background:#fff;
+			overflow:hidden;
+		}
+		.box-a-1{
+			width:25%;
+			text-align:center;
+			padding:20px 0px;
+			float:left;
+		}
+		.box-a-1 span{
+			width:40px;
+			height:20px;
+			line-height:10px;
+			border-radius:100px;
+		}
+		.box-a-1 p{
+			margin:0px;
+			padding-top:0px;
+			font-size:12px;
+		}
+	</style>
+	
+	<p class="wddd">我的工具</p>
+	<div class="box-a"> 
+ 		  <a href="collect.html" class="member_collec">
+ 		  <div class="box-a-1">
+ 		 	 <span><i class="iconfont icon-shoucang1"></i></span>
+			 <p>收藏</p>
+		  </div>
+		  </a>
+		  <a href="./member/address-list.html?back=member" class="member_address">
+		   <div class="box-a-1">
+ 		 	 <span><i class="iconfont icon-dizhi1"></i></span>
+			 <p>地址</p>
+		  </div>
+		  </a>
+		  
+		  <a href="${ctx}/member/my-bonus.html" class="member_address">
+		   <div class="box-a-1">
+ 		 	 <span><i class="iconfont icon-youhuiquan"></i></span>
+			 <p>优惠券</p>
+		  </div>
+		  </a>
+		  
+		  <a href="commentlist.html" class="member_address">
+		    <div class="box-a-1">
+ 		 	 <span><i class="iconfont icon-pingjia2"></i></span>
+			 <p>评价</p>
+		 	 </div>
+		 	 </a>
+		 	 
+		 	 <a href="info.html" class="member_address">
+		 	 <div class="box-a-1">
+ 		 	 <span><i class="iconfont icon-pingjia1"></i></span>
+			 <p>设置</p>
+		 	 </div>
+		 	 </a>
+		 	 
+		 	 <a href="./member/security.html" class="member_address">
+		 	 <div class="box-a-1">
+ 		 	 <span><i class="iconfont icon-anquan"></i></span>
+			 <p>安全</p>
+		 	 </div>
+		 	 </a>
+		 	 
+		 	 <a href="return_list.html" class="member_address">
+		 	 <div class="box-a-1">
+ 		 	 <span><i class="iconfont icon-shouhouwuyou"></i></span>
+			 <p>售后</p>
+		 	 </div>
+		 	 </a>
+		 	 
+		 	<!--   <div class="box-a-1" class="member-logout">
+		 	  <span><i class="iconfont icon-qiehuanzuhu"></i></span>
+			 <p>退出</p>
+		 	 </div> -->
+	</div> 
+</div>
+
+	<!-- <div class="go-member-other-box">
+		<ul>
+			
+			<li><a href="./member/address-list.html?back=member" class="member_address">我的地址</a></li>
+			<li><a href="${ctx}/member/my-bonus.html" class="member_address">我的优惠券</a></li>
+			<li><a href="commentlist.html" class="member_address">我的评价</a></li>
+			<li><a href="info.html" class="member_address">我的信息</a></li>
+			<li><a href="./member/security.html" class="member_address">账户安全</a></li>
+			<li><a href="return_list.html" class="member_address">售后列表</a></li>
+		</ul>
+	</div> -->
+	
+	<div class="member-logout-box">
+		<input type="button" class="member-logout" value="注销/退出" <#if member??><#else>disabled="disabled"</#if>/>
+	</div>
+</div>
+
+<script>
+	$(function(){
+		$(".member-logout").click(function(){
+			$.ajax({
+				url:"${ctx}/api/shop/member/logout.do",
+				dataType:"json",
+				success : function(data) {	
+					if(data.result==1){
+						alert("退出成功")
+						location.href="index.html"
+					}
+					else{
+						alert(data.message)
+					}
+				}
+			})
+		})
+	})
+</script>
+
+<#include 'common/float_footer.html'/>
+<#include 'common/footer.html'/>

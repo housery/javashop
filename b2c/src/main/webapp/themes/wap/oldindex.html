@@ -1,0 +1,210 @@
+<#assign  title="商城首页" />
+<#include 'common/header.html'/>
+<!-- 获取广告列表 -->
+<#assign advListTag= newTag("advListTag")>
+<#assign adv = advListTag("'acid':'1'")!''>
+<#assign advList = adv.advList /> 
+<!-- 调用商品分类信息 -->
+<#-- 调用商品分类信息 -->
+<#assign goodsCatTag= newTag("goodsCatTag")>
+<#assign goodsCat = goodsCatTag("'catimage':'on'}")>
+<!-- 获取商品列表标签 -->
+<#assign goodsListTag = newTag("goodsListTag")>
+<link rel="stylesheet" type="text/css" href="${ctx}/themes/wap/css/index.css" />
+<link rel="stylesheet" type="text/css" href="${ctx}/statics/e_tools/mobile/library/swiper/swiper-3.3.1.min.css" />
+<script type="text/javascript" src="${ctx}/statics/e_tools/mobile/library/swiper/swiper-3.3.1.jquery.min.js"></script>
+<!-- 搜索 -->
+<style type="text/css">
+		.index-search-box1 {
+			height:30px;
+			text-align:center;
+			line-height:30px;
+			z-index:999;
+			opacity: 0.8; 
+			background-color:white;
+			width:60%;
+			overflow-y:scroll;
+			overflow-x:auto;
+			position:fixed; left:20%; top:10px;
+			overflow-y:scroll;
+			overflow-x:auto;
+			border-top-left-radius:2em;
+ 			border-top-right-radius:2em; 
+ 			border-bottom-left-radius:2em;
+ 			border-bottom-right-radius:2em;
+ 			letter-spacing:6px;
+		}
+	</style>
+	<div class="index-search-box1">
+		<a href="${ctx}/search.html" class="go-search">
+			<span style="font-size:12px">搜索商品名称</span> 
+		</a>
+	</div>
+	<!-- 广告 -->
+	<style type="text/css">
+		.swiper-container {
+			width: 100%;
+			height: 21rem;
+		}
+		.swiper-container img {
+			width: 100%;
+			height: 100%;
+			border: none;
+		}
+	</style>
+	<div class="" >
+		<div class="swiper-container">
+			<ul class="swiper-wrapper">
+			<#list advList as adv>
+                <li class="swiper-slide">
+                    <a href="${ctx}${adv.url}">
+                        <img class="swiper-lazy" data-src="${adv.atturl!''}">
+                        <div class="swiper-lazy-preloader swiper-lazy-preloader-black"></div>
+                    </a>
+                </li>
+			</#list>
+			</ul>
+			<!-- 分页器 -->
+			<!-- <div class="swiper-pagination"></div> -->
+		</div>
+	</div>
+	<!-- 分类展示一 -->
+	<style type="text/css">
+		.box-a{
+			position:absolute;
+			left:3%;
+			top:186px; 
+			z-index:888; 
+			width:94%;
+			overflow-y:scroll;
+			overflow-x:auto;
+			border-top-left-radius:0.6em;
+ 			border-top-right-radius:0.6em; 
+		}
+		.box-b{
+			position:absolute;
+			left:3%;
+			top:186px; 
+			z-index:666; 
+			width:94%;
+			overflow-y:scroll;
+			overflow-x:auto;
+			border-top-left-radius:0.6em;
+ 			border-top-right-radius:0.6em; 
+			opacity: 0.7; 
+			background-color:white;
+		}
+		.box-a-1{
+			width:24.4%;
+			text-align:center;
+			padding:6px 0px;
+			margin:0px;
+			float:left;
+		}	
+		.box-a-2{
+			width:100%;
+			height:16px;
+			
+		}
+		.box-a-1 span{
+			margin:0px;
+			width:40px;
+			height:40px;
+			line-height:0px;
+			border-radius:100px;
+		}
+		.box-a-1 p{
+			margin:0px;
+			padding-top:0px;
+			font-size:12px;
+		}
+	</style>
+	<!-- <div class="box-a"  style="background:url(${ctx}/statics/e_tools/images/beifang/timg.jpg); background-size:100% 100%;"> --> 
+	<div class="box-a"> 
+ 		  <div class="box-a-2"></div>
+ 		  <#list goodsCat.cat_tree as cat>
+ 		  <a href="${ctx}/goods_list.html?cat=${cat.cat_id}">
+ 		  <div class="box-a-1">
+ 		 	 <span><img src="${cat.image!'${ctx}/statics/e_tools/images/beifang/beifang-no_img.png'}" alt="" height="32px"></span>
+			 <p>${cat.name}</p>
+		  </div>
+		  </a>
+		  </#list> 
+		   <div class="box-a-2"></div>
+	</div> 
+	<div class="box-b"> 
+ 		  <div class="box-a-2"></div>
+ 		  <#list goodsCat.cat_tree as cat>
+ 		  <a href="${ctx}/goods_list.html?cat=${cat.cat_id}">
+ 		  <div class="box-a-1">
+ 		 	 <span><img src="${cat.image!'${ctx}/statics/e_tools/images/beifang/beifang-no_img.png'}" alt="" height="32px"></span>
+			 <p>${cat.name}</p>
+		  </div>
+		  </a>
+		  </#list> 
+		   <div class="box-a-2"></div>
+	</div> 
+	<!-- 产品展示一 -->
+	<style type="text/css">
+		.index-goods-name{
+			height:20px;
+		}
+	</style>
+	<div class="index-goods-list-box">
+		<#assign goodsList=goodsListTag("'tagid':'1','goodsnum':'100'")>
+		<#assign n = 1>
+		<ul class="index-goods-list-top">
+			<#list goodsList as goods>
+				<li class="index-goods-list">
+					<div class="index-goods-name" style>
+						<a href="${ctx}/goods-${goods.goods_id}.html"><@substring	title="${goods.name}" length="20" dot="..." /></a>
+					</div>
+					<div class="index-goods-img">
+						<a href="${ctx}/goods-${goods.goods_id}.html">
+							<@image class="scrollLoading" src="${goods.thumbnail!''}" alt="${goods.name}" />
+						</a>
+					</div>
+					<div class="index-goods-price-backdrop">
+						<a href="${ctx}/goods-${goods.goods_id}.html"><span class="index-goods-price">${goods.price?string.currency}</span></a>
+					</div>
+				</li>
+				<#assign n = n+1>
+			</#list>
+		</ul>
+	</div>
+	<!-- 商品展示2 -->
+	<div class="index-goods-more">
+		<#assign goodsList=goodsListTag("'tagid':'2','goodsnum':'100'")>
+		<ul>
+			<#list goodsList as goods>
+				<li>
+					<div class="index-goods-img">
+						<a href="${ctx}/goods-${goods.goods_id}.html">
+							<@image class="scrollLoading" src="${goods.thumbnail!''}" alt="${goods.name}" />
+						</a>
+					</div>
+					<div class="index-goods-name">
+						<a href="${ctx}/goods-${goods.goods_id}.html">
+							<p>${goods.name}</p>
+							<span class="index-goods-price"><i>${goods.price?string.currency}</i>元</span>
+						</a>
+					</div>
+				</li>
+			</#list>
+		</ul>
+	</div>
+<script type="text/javascript">
+$(function(){
+	var mySwiper = new Swiper ('.swiper-container', {
+		loop: true,
+		autoplayDisableOnInteraction : false,
+		autoplay: 3000,
+		pagination: '.swiper-pagination',
+        lazyLoading : true,
+        lazyLoadingInPrevNext : true,
+        lazyLoadingInPrevNextAmount : 1,
+	})
+});
+</script>
+<#include 'common/float_footer.html'/>
+<#include 'common/footer.html'/>
